@@ -163,12 +163,7 @@ public class MovimientoActivity extends AppCompatActivity {
     }
 
     public double calcularTarifa(int horas){
-        if(horas == 0){
-            return db.getTarifaDAO().listar().get(movimiento.getIdTarifa()).getPrecio();
-        }else{
-            movimiento = db.getMovimientoDAO().findByPLaca(txtPlaca.getText().toString());
-            return db.getTarifaDAO().listar().get(movimiento.getIdTarifa()).getPrecio() * horas;
-        }
+        return horas * db.getTarifaDAO().findById(movimiento.getIdTarifa()).getPrecio();
     }
 
 

@@ -37,6 +37,7 @@ public class DateUtil {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_HORA, Locale.ENGLISH);
         Date fechaInicial = dateFormat.parse(fechaInicialString);
         Date fechaFinal = dateFormat.parse(fechaFinalString);
+        int tiempoTotalHoras = 0;
 
         int diferencia = (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 1000);
 
@@ -55,9 +56,36 @@ public class DateUtil {
             minutos = (int) Math.floor(diferencia / 60);
             diferencia = diferencia - (minutos * 60);
         }
-        int horasCalculadas =  horas;
 
-        return horas;
+        if(dias>0){
+            tiempoTotalHoras = 24 * dias;
+            if(horas > 0){
+                tiempoTotalHoras += horas;
+                if(minutos>30){
+                    tiempoTotalHoras++;
+                }
+            }else{
+                if(minutos>30){
+                    tiempoTotalHoras++;
+                }
+            }
+        }else{
+            if(horas>0){
+                tiempoTotalHoras += horas;
+                if(minutos>30){
+                    tiempoTotalHoras++;
+                }
+            }else{
+                if(minutos>30){
+                    tiempoTotalHoras++;
+                }
+            }
+        }
+        if(tiempoTotalHoras==0){
+            tiempoTotalHoras = 1;
+        }
+
+        return tiempoTotalHoras;
     }
 
 
